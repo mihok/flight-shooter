@@ -88,5 +88,5 @@ Airplane.prototype.update = function( dt ) {
     Engine.camera.position.x = this.mesh.position.x;
     Engine.camera.position.z = this.mesh.position.z + 200;
 
-    Engine.camera.rotateZ((Input.mouse.x * -1) * 2 * dt);
+    // Engine.camera.rotateZ((Input.mouse.x * -1) * 2 * dt);
 };

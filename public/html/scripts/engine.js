@@ -62,4 +62,4 @@ Engine.prototype.loop = function() {
 
     //Render everything
     this.renderer.render(this.currentScene, this.camera);
-}
+};

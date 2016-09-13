@@ -1,5 +1,5 @@
 function Sky() {
-    this.numClouds = 300;
+    this.numClouds = 500;
     this.mesh;
 }
 
@@ -24,11 +24,10 @@ Sky.prototype.draw = function( scene ) {
       // we are simply converting polar coordinates (angle, distance) into Cartesian coordinates (x, y)
       c.mesh.position.y = Math.floor(Math.random() * 300) + 150;
       c.mesh.position.x = Math.floor(Math.random() * 5000) + 1;
-      c.mesh.position.z = Math.floor(Math.random() * 5000) + 1;
+      c.mesh.position.z = (Math.floor(Math.random() * 5000) * -1) + 1 ;
 
       // for a better result, we position the clouds
       // at random depths inside of the scene
-      c.mesh.position.z = -400-Math.random()*400;
 
       // we also set a random scale for each cloud
       var s = 1+Math.random()*2;
@@ -39,6 +38,7 @@ Sky.prototype.draw = function( scene ) {
     }
 
     this.mesh.position.x = -2500;
+    this.mesh.position.z = -200;
 
     // Put it into position
     scene.add(this.mesh);

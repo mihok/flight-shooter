@@ -52,7 +52,7 @@ function MainScene( Game ) {
     //Draw the terrain.
     var terrain = new THREE.Object3D();
     var terrainGeometry = new THREE.BoxGeometry(5000, 1, 5000);
-    var terrainMaterial = new THREE.MeshPhongMaterial({color: Engine.colors.brown, shading: THREE.FlatShading});
+    var terrainMaterial = new THREE.MeshPhongMaterial({color: Engine.colors.brownDark, shading: THREE.FlatShading});
     var terrainMesh = new THREE.Mesh(terrainGeometry, terrainMaterial);
     terrain.add(terrainMesh);
 

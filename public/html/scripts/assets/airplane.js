@@ -65,7 +65,9 @@ Airplane.prototype.draw = function( scene ) {
 
     this.mesh.scale.set(0.25, 0.25, 0.25);
     this.mesh.position.y = 50;
+    this.mesh.rotation.x = 0;
     this.mesh.rotation.y = 1.5708;
+    this.mesh.rotation.z = 0;
 
     scene.add(this.mesh);
 }
@@ -73,10 +75,15 @@ Airplane.prototype.draw = function( scene ) {
 Airplane.prototype.update = function( dt ) {
 
     //Set rotation based on mouse
-    this.mesh.rotation.y = 1.5708 + (Input.mouse.x * -1);
+    this.mesh.rotateX(Input.mouse.x * 5 * dt);
+
+    this.mesh.position.y = this.mesh.position.y;
+    this.mesh.position.x += (Input.mouse.x * 10 * dt);
+    this.mesh.position.z -= (10 * dt);
+
 
     this.propeller.rotation.x += (this.propellerSpeed * dt);
-    this.mesh.translateX(50 * dt);
+
 
     Engine.camera.position.x = this.mesh.position.x;
     Engine.camera.position.z = this.mesh.position.z + 200;

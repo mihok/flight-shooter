@@ -1,5 +1,5 @@
 function Sky() {
-    this.numClouds = 100;
+    this.numClouds = 300;
     this.mesh;
 }
 
@@ -22,7 +22,7 @@ Sky.prototype.draw = function( scene ) {
       // Trigonometry!!! I hope you remember what you've learned in Math :)
       // in case you don't:
       // we are simply converting polar coordinates (angle, distance) into Cartesian coordinates (x, y)
-      c.mesh.position.y = Math.floor(Math.random() * 150) + 100;
+      c.mesh.position.y = Math.floor(Math.random() * 300) + 150;
       c.mesh.position.x = Math.floor(Math.random() * 5000) + 1;
       c.mesh.position.z = Math.floor(Math.random() * 5000) + 1;
 

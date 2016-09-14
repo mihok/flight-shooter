@@ -24,7 +24,7 @@ function Engine() {
 Engine.prototype.init = function() {
 
     //Create the camera and the renderer.
-    this.camera = new THREE.PerspectiveCamera(70, this.WIDTH / this.HEIGHT, 1, 1000);
+    this.camera = new THREE.PerspectiveCamera(70, this.WIDTH / this.HEIGHT, 1, 15000);
     this.renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true

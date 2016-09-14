@@ -2,12 +2,15 @@ function Airplane() {
 
     this.mesh;
     this.propellerSpeed = 20;
-
-    document.addEventListener('mouseup', this.fireBullet);
+    var self = this;
+    window.onkeyup = function() {
+        self.fireBullet();
+    };
 }
 
 Airplane.prototype.draw = function( scene ) {
 
+    this.plane = new THREE.Object3D();
     this.mesh = new THREE.Object3D();
 
     // Create the cabin
@@ -66,27 +69,63 @@ Airplane.prototype.draw = function( scene ) {
     this.mesh.scale.set(0.25, 0.25, 0.25);
     this.mesh.position.y = 50;
     this.mesh.rotation.x = 0;
-    this.mesh.rotation.y = 1.5708;
+    this.mesh.rotation.y = 0;
     this.mesh.rotation.z = 0;
 
-    scene.add(this.mesh);
+    Engine.camera.position.x = this.mesh.position.x - 200;
+    Engine.camera.position.y = this.mesh.position.y + 50;
+    Engine.camera.position.z = this.mesh.position.z;
+
+    this.plane.add(this.mesh);
+    this.plane.add(Engine.camera);
+
+    Engine.camera.lookAt(this.mesh.position);
+
+    scene.add(this.plane);
 }
 
 Airplane.prototype.update = function( dt ) {
+    var matrix = new THREE.Matrix4();
+    matrix.extractRotation( this.plane.matrix );
 
-    //Set rotation based on mouse
-    this.mesh.rotateX(Input.mouse.x * 5 * dt);
+    var direction = new THREE.Vector3( 1, 0, Input.mouse.x );
+    direction = matrix.multiplyVector3( direction );
 
-    this.mesh.position.y = this.mesh.position.y;
-    this.mesh.position.x += (Input.mouse.x * 10 * dt);
-    this.mesh.position.z -= (150 * dt);
+    this.plane.position.x += direction.x;
+    this.plane.position.y = this.plane.position.y;
+    this.plane.position.z += direction.z;
 
+    // this.mesh.rotateX(Input.mouse.x * dt);
+    this.plane.rotateY((Input.mouse.x * -1) * dt);
+
+    var maxX = 0.52;
+    var minX = -0.52;
+    var rotateX = this.mesh.rotation.x;
+    if ( rotateX < maxX && Input.mouse.x > 0) {
+        this.mesh.rotateX((Input.mouse.x) * 5 * dt);
+    } else if ( rotateX > minX && Input.mouse.x < 0) {
+        this.mesh.rotateX((Input.mouse.x) * 5 * dt);
+    }
 
     this.propeller.rotation.x += (this.propellerSpeed * dt);
+};
+
+Airplane.prototype.fireBullet = function() {
+    var newBullet = new Bullet();
+
+    newBullet.draw(Engine.currentScene);
+    Engine.currentScene.add(newBullet.mesh);
+
+    newBullet.mesh.position.x = this.plane.position.x + 10;
+    newBullet.mesh.position.y = this.mesh.position.y;
+    newBullet.mesh.position.z = this.plane.position.z;
+
+    newBullet.mesh.rotation.set(
+        this.plane.rotation.x,
+        this.plane.rotation.y,
+        this.plane.rotation.z
+    );
 
 
-    Engine.camera.position.x = this.mesh.position.x;
-    Engine.camera.position.z = this.mesh.position.z + 200;
-
-    // Engine.camera.rotateZ((Input.mouse.x * -1) * 2 * dt);
+    Engine.currentScene.gameObjects.push(newBullet);
 };

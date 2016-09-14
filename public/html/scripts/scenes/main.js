@@ -8,13 +8,7 @@ function MainScene( Game ) {
     self.gameObjects = [];
 
     // Add a fog effect to the scene.
-    self.fog = new THREE.Fog(0xf7d9aa, 100, 950);
-
-    // Set the position of the camera.
-    Game.camera.position.x = 0;
-    Game.camera.position.z = 200;
-    Game.camera.position.y = 100;
-
+    self.fog = new THREE.Fog(0xf7d9aa, 1000, 8000);
 
     //Create lights.
     hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9);
@@ -51,8 +45,8 @@ function MainScene( Game ) {
 
     //Draw the terrain.
     var terrain = new THREE.Object3D();
-    var terrainGeometry = new THREE.BoxGeometry(5000, 1, 5000);
-    var terrainMaterial = new THREE.MeshPhongMaterial({color: Engine.colors.brownDark, shading: THREE.FlatShading});
+    var terrainGeometry = new THREE.BoxGeometry(10000, 1, 10000);
+    var terrainMaterial = new THREE.MeshPhongMaterial({color: Engine.colors.brown, shading: THREE.FlatShading});
     var terrainMesh = new THREE.Mesh(terrainGeometry, terrainMaterial);
     terrain.add(terrainMesh);
 

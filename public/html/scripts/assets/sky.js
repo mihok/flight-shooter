@@ -1,5 +1,5 @@
 function Sky() {
-    this.numClouds = 500;
+    this.numClouds = 200;
     this.mesh;
 }
 
